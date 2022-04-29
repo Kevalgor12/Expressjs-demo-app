@@ -5,7 +5,7 @@ var app = express();
 const bodyparser = require('body-parser');
 let port = process.env.port;
 
-// app.use(bodyparser.json());
+app.use(bodyparser.json());
 app.get('/', (req, res) => {
     res.send('hello friends!!!, welcome to our blog site.')
 })

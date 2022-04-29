@@ -1,10 +1,12 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const mysql = require('mysql');
 
 var mysqlConnection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: '',
-  database: 'blogapi'
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database
 });
 
 mysqlConnection.connect((err) => {
