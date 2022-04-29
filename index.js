@@ -1,5 +1,71 @@
-const dbconnection = require('./src/db/dbconnection');
-const express = require('express');
-var app = express();
-const router = express.Router();
-const bodyparser = require('body-parser');
+const mysqlConnection = require('./src/db/dbconnection');
+const app = require('./src/server');
+
+// get all
+app.get('/blogs', (req, res) => {
+    mysqlConnection.query('SELECT * FROM blog', (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+            console.log(rows)
+        }
+        else {
+            console.log(err);
+        }
+    })
+});
+
+// get by id
+app.get('/blogs/:id', (req, res) => {
+    mysqlConnection.query('SELECT * FROM blog WHERE blogid = ?', [req.params.id], (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+        }
+        else {
+            console.log(err);
+        }
+    })
+});
+
+// delete by id
+app.delete('/blogs/:id', (req, res) => {
+    mysqlConnection.query('DELETE FROM blog WHERE blogid = ?', [req.params.id], (err, rows, fields) => {
+        if (!err) {
+            res.send(req.params.id + " " + "deleted succesfully");
+        }
+        else {
+            console.log(err);
+        }
+    })
+});
+
+// insert
+app.post('/blogs', (req, res) => {
+    let blog = {
+        title: req.body.title,
+        imagepath: req.body.imagepath,
+        description: req.body.description,
+        publisheddate: req.body.publisheddate,
+        author: req.body.author
+    };
+    mysqlConnection.query('INSERT INTO blog SET ?', blog, (err, rows, fields) => {
+        if (!err) {
+            res.send("new blog inserted succesfully");
+        }
+        else {
+            console.log(err);
+        }
+    })
+});
+
+// update by id
+app.put('/blogs/:id', (req, res) => {
+    let sql = `UPDATE blog SET title = "${req.body.title}", imagepath = "${req.body.imagepath}", description = "${req.body.description}", publisheddate = "${req.body.publisheddate}", author = "${req.body.author}" WHERE blogId = "${req.params.id}"`;
+    mysqlConnection.query(sql, (err, rows, fields) => {
+        if (!err) {
+            res.send(req.params.id + " " + "blog updated succesfully");
+        }
+        else {
+            console.log(err);
+        }
+    })
+});
