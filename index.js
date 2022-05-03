@@ -1,5 +1,4 @@
 const mysqlConnection = require('./src/db/dbconnection');
-const app = require('./src/server');
 const router = require('./src/server');
 
 // get all
