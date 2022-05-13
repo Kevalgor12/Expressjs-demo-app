@@ -40,12 +40,15 @@
 
 .login-form {
     max-width: 400px;
-    margin: 100px auto;
+    margin: 90px auto;
     padding: 20px 20px;
     background-color: rgb(210, 205, 177);
     border: none;
     border-radius: 3px;
     box-shadow: rgb(178, 185, 124) 0px 5px 15px 0px;
+}
+.login-form:hover {
+    transform: scale(1.005);
 }
 .login-form .login-header {
     color: #4F4F4F;
@@ -81,5 +84,16 @@
     color: #4F4F4F;
     font-size: 16px;
     font-weight: 400;
+    text-align: center;
+}
+.register-text {
+    color: #3D63D6;
+    text-decoration: none;
+}
+.register-text:hover {
+    text-decoration: underline;
+}
+.home {
+    margin: 100px auto;
     text-align: center;
 }
